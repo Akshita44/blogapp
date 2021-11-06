@@ -8,13 +8,34 @@ const cookieparser=require("cookie-parser")
 require("./db/conn");
 app.use(express.json())
 app.use(cookieparser())
-const l=function(req, res, next) {
-      const d= req.protocol + '://' + req.get('host') + req.originalUrl + "/images";
-      console.log(d);
-      return d
-}
-const m=l()    
-app.use("/images",m);
+// const l=function(req, res, next) {
+//       const d= req.protocol + '://' + req.get('host') + req.originalUrl + "/images";
+//       console.log(d);
+//       return d
+// }
+// const m=l() 
+/*
+app.get('*', function (req, res) {    
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const url = req.originalUrl;
+    const port = process.env.PORT || PORT;
+  
+    const fullUrl = `${protocol}://${host}:${port}${url}`
+      
+    const responseString = `Full URL is: ${fullUrl}`;                       
+    res.send(responseString);  
+}) */   
+app.use("/images",function (req, res) {    
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const url = req.originalUrl;
+    const port = process.env.PORT || PORT;
+  
+    const fullUrl = `${protocol}://${host}:${port}${url}/images`
+      
+    const responseString = `Full URL is: ${fullUrl}`;                       
+    res.send(responseString);});
 // app.use("/images",express.static(__dirname,"/images"))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
