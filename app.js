@@ -31,9 +31,7 @@ app.post("/api/upload",upload.single("file"),(req,res)=>{
 app.use("/api/auth",userrouter)
 app.use("/api/post",postrouter)
 app.use("/api/categories",categoryrouter)
-app.get("/",(req,res)=>{
-    res.send("Hello world");
-})
+
 if(process.env.NODE_ENV === "production")
 {
     app.use(express.static("client/build"));
