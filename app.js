@@ -8,14 +8,14 @@ const cookieparser=require("cookie-parser")
 require("./db/conn");
 app.use(express.json())
 app.use(cookieparser())
-app.use("/images",function(req, res, next) {
+const l=function(req, res, next) {
     req.getUrl = function() {
       const d= req.protocol + '://' + req.get('host') + req.originalUrl + "/images";
       console.log(d);
       return d
     }
-    return next();
-  });
+const m=l()    
+app.use("/images",m);
 // app.use("/images",express.static(__dirname,"/images"))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
