@@ -25,7 +25,7 @@ const storage=multer.diskStorage({
 })
 
 const upload=multer({storage:storage});
-app.post("/api/upload",upload.single("file"),(req,res)=>{
+app.post("/upload",upload.single("file"),(req,res)=>{
     res.status(200).send("file have been uploaded");
 })
 app.use("/auth",userrouter)
