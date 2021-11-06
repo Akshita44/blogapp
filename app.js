@@ -28,9 +28,9 @@ const upload=multer({storage:storage});
 app.post("/api/upload",upload.single("file"),(req,res)=>{
     res.status(200).send("file have been uploaded");
 })
-app.use("/api/auth",userrouter)
-app.use("/api/post",postrouter)
-app.use("/api/categories",categoryrouter)
+app.use("/auth",userrouter)
+app.use("/post",postrouter)
+app.use("/categories",categoryrouter)
 
 if(process.env.NODE_ENV === "production")
 {
