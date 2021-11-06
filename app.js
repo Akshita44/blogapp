@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cookieparser())
 app.use("/images",function(req, res, next) {
     req.getUrl = function() {
-      const d=req.protocol + "://" + req.get('host') +"/images";
+      const d= req.protocol + '://' + req.get('host') + req.originalUrl + "/images";
       console.log(d);
       return d
     }
