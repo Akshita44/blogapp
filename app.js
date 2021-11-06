@@ -32,10 +32,10 @@ app.use("/images",function (req, res) {
     const url = req.originalUrl;
     const port = process.env.PORT || PORT;
   
-    const fullUrl = `${protocol}://${host}:${port}${url}/images`
+    const fullUrl = `${protocol}://${host}:${port}${url}`
       
-    const responseString = `Full URL is: ${fullUrl}`;                       
-    res.send(responseString);});
+    return fullUrl
+});
 // app.use("/images",express.static(__dirname,"/images"))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
