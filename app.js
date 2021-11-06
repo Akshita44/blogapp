@@ -14,6 +14,7 @@ const l=function(req, res, next) {
       console.log(d);
       return d
     }
+}
 const m=l()    
 app.use("/images",m);
 // app.use("/images",express.static(__dirname,"/images"))
