@@ -9,11 +9,9 @@ require("./db/conn");
 app.use(express.json())
 app.use(cookieparser())
 const l=function(req, res, next) {
-    req.getUrl = function() {
       const d= req.protocol + '://' + req.get('host') + req.originalUrl + "/images";
       console.log(d);
       return d
-    }
 }
 const m=l()    
 app.use("/images",m);
