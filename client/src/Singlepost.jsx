@@ -16,7 +16,7 @@ function Singlepost(props) {
     const location= useLocation();
     const history=useHistory();
     const id=location.pathname.split("/")[2].slice(1)
-    const PF=state.loc + "/images/";
+    const PF=state.loc + "images/";
     console.log(id);
     // console.log(state.user);
     // console.log(state.user.username);
