@@ -1,0 +1,52 @@
+.loginpage{
+    height: calc(100vh - 50px);
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url("https://images.pexels.com/photos/733857/pexels-photo-733857.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    background-size: cover;
+}
+.logintitle{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+}
+.loginform{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Times New Roman', Times, serif;
+}
+.loginform > label{
+    font-size: 20px;
+    margin:10px 0px;
+
+}
+.loginform > input
+{
+    padding: 10px;
+    width: 200px;
+    background-color: white;
+    border: none;
+
+}
+.loginbutton{
+    width: 100px;
+    align-self: center;
+    margin: 20px 0px;
+    background-color: lightcoral;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+.registerbutton{
+    text-align: center;
+    color: teal;
+    /* text-decoration: none; */
+}
+

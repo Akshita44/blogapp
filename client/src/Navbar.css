@@ -1,0 +1,47 @@
+.navbar{
+    padding-top: 10px;
+    display: flex;
+}
+.navleft,.navright{
+    flex:3;
+    display:flex;
+    justify-content: center;
+}
+.navicon{
+    font-size: 25px;
+    margin-right: 10px;
+}
+.navcenter{
+    flex: 6;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.navcenter >ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.navlist > li{
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 300;
+}
+.navimg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.fa-search{
+    font-size:16px;
+    margin: 10px 10px;
+}
+/*     font-family: 'Josefin Sans', sans-serif;
+
+    font-family: 'Lora', serif;
+
+    font-family: 'Varela', sans-serif;
+
+    font-family: 'Varela Round', sans-serif; */
