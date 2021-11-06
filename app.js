@@ -8,7 +8,7 @@ const cookieparser=require("cookie-parser")
 require("./db/conn");
 app.use(express.json())
 app.use(cookieparser())
-app.use("/images",express.static(path.join(__dirname,"/images")))
+app.use("/images",express.static(path.join(document.URL,"/images")))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
 const postrouter=require("./router/posts");
