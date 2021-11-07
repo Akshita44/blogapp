@@ -18,7 +18,7 @@ app.use(cookieparser())
       
 //     return fullUrl
 // });
-app.use("/images",express.static(__dirname,"/images"))
+app.use("/images",express.static(path.join(__dirname,"/images")))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
 const postrouter=require("./router/posts");
