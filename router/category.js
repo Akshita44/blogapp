@@ -4,9 +4,16 @@ const Category= require("../models/categories")
 
 router.post("/",async(req,res)=>{
     try{
-        const d=new Category(req.body)
-        const data=await d.save();
-        res.status(200).send(data)
+        const a=await Category.find({name:req.body.name})
+        if(!a)
+        {
+            const d=new Category(req.body)
+            const data=await d.save();
+           res.status(200).send(data)
+        }
+        else{
+            res.status(200).send("Already exists");
+        }
     }
     catch(e)
     {
