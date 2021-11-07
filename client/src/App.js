@@ -25,10 +25,14 @@ function App() {
         {
           const d=await res.json()
           dispatch({
-            type:"Set",
-            payload: {user:d,add:document.URL}
+            type:"Login",
+            payload:d
           })            
         }
+        dispatch({
+          type:"Set",
+          payload: {add:document.URL}
+        })
 }
 useEffect(()=>{
     check();

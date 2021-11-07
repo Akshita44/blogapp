@@ -14,7 +14,7 @@ export default (initialState,action)=>{
     else if(action.type === "Set")
     {
         return{
-            user:action.payload.user,
+            ...initialState,
             loc:action.payload.add
         }
     }
