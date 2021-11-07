@@ -4,10 +4,11 @@ const Category= require("../models/categories")
 
 router.post("/",async(req,res)=>{
     try{
-        const a=await Category.find({name:req.body.name})
+        const t=req.body.name[0].toUpperCase()+req.body.name.toLowerCase().slice(1)
+        const a=await Category.find({name:t})
         if(!a)
         {
-            const d=new Category(req.body)
+            const d=new Category({...req.body,name:t})
             const data=await d.save();
            res.status(200).send(data)
         }
