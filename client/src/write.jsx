@@ -49,6 +49,9 @@ function Write() {
         {
             history.push(`/`)
         }
+        else{
+            alert("Wrong Details.(Check your title, it must be unique)")
+        }
 
     }
     useEffect(()=>{
