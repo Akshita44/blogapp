@@ -43,7 +43,8 @@ function Write() {
             catch(err)
             {}
         }
-        const d=await axios.post("/post/",t)
+        try{
+            const d=await axios.post("/post/",t)
         console.log(d.status);
         if(d.status === 201)
         {
@@ -52,6 +53,13 @@ function Write() {
         else{
             alert("Wrong Details.(Check your title, it must be unique)")
         }
+
+        }
+        catch(err)
+        {
+            alert("Wrong Details.(Check your title, it must be unique)")
+        }
+        
 
     }
     useEffect(()=>{
