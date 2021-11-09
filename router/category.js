@@ -7,6 +7,7 @@ router.post("/",async(req,res)=>{
         const t=req.body.name[0].toUpperCase()+req.body.name.toLowerCase().slice(1)
         const a=await Category.find({name:t})
         console.log(a);
+        res.send(a)
         if(!a)
         {
             const d=new Category({...req.body,name:t})
