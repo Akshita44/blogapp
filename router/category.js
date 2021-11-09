@@ -9,7 +9,7 @@ router.post("/",async(req,res)=>{
         console.log(a);
         if(a.length === 0)
         {
-            const d=new Category({...req.body,name:t})
+            const d=new Category(req.body)
             const data=await d.save();
            res.status(200).send(data)
         }
