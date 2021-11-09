@@ -27,7 +27,6 @@ function Write() {
         console.log(c.data);
         }
         catch{}
-
         const t={username,title,desc,categories:[cat]}
         if(file)
         {
@@ -90,7 +89,7 @@ function Write() {
             </div>
             <div className="writeFormGroups">
             <input type="text" className="writeinputcat" placeholder="Add a Category" autoFocus={true} 
-            onChange={(e)=>{setcat(e.target.value)}}/>
+            onChange={(e)=>{setcat(e.target.value[0].toUpperCase()+e.target.value.toLowerCase().slice(1))}}/>
                 <textarea type="text" placeholder="Tell your story..." className="writeinput writetext"
                 onChange={(e)=>{setdesc(e.target.value)}}></textarea>
             </div>
