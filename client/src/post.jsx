@@ -18,7 +18,7 @@ function Post(props) {
                 <span className="postcat">{e}</span>
                 ))}
             </div>
-            <span className="posttitle"><Link to={`/singlepost/:${props.post._id}`}>{props.post.title}</Link></span>
+            <span className="posttitle"><Link to={`/singlepost/:${props.post._id}`} className="link">{props.post.title}</Link></span>
             <p className="postdate">{new Date(props.post.createdAt).toDateString()}</p>
             </div>
             <p className="postdesc">{props.post.desc}</p>
