@@ -7,7 +7,9 @@ import {Context} from "./App"
 function Navbar() {
     const {state,dispatch}=useContext(Context)
     const history=useHistory()
-    const PF=state.loc + "images/";
+    const l=state.loc.split(":")
+    const PF="http:"+l[0] + "images/";
+    // const PF=state.loc + "images/";
     const clear=async()=>{
             const res=await fetch("/auth/logout",{
                 method:"GET",

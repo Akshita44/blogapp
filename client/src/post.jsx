@@ -5,7 +5,9 @@ import {Context} from "./App"
 function Post(props) {
     const {state}=useContext(Context)
     console.log(props.post._id);
-    const PF=state.loc + "images/";
+    const l=state.loc.split(":")
+    const PF="http:"+l[0] + "images/";
+    // const PF=state.loc+"images/"
     return (
         <div className="post">
             {props.post.photo &&
