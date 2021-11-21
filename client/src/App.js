@@ -24,6 +24,7 @@ function App() {
         if(res.status === 200)
         {
           const d=await res.json()
+          console.log(d);
           dispatch({
             type:"Login",
             payload:d
