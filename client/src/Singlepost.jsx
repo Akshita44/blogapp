@@ -18,7 +18,8 @@ function Singlepost(props) {
     const id=location.pathname.split("/")[2].slice(1)
     // const l=state.loc.split(":")
     // const PF="http:"+l[0] + "images/";
-    const PF=state.loc + "images/";
+    // const PF=state.loc + "images/";
+    const PF="http:"+state.loc?.split(":")[1] + "images/";
     console.log(id);
     // console.log(state.user);
     // console.log(state.user.username);

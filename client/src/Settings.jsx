@@ -53,7 +53,8 @@ function Settings() {
     },[state])
     // const l=state.loc.split(":")
     // const PF="http:"+l[0] + "images/";
-    const PF=state.loc + "images/";
+    // const PF=state.loc + "images/";
+    const PF="http:"+state.loc?.split(":")[1] + "images/";
     return (
         <div className="settings">
             <div className="settingsWrapper">

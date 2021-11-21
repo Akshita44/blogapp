@@ -7,7 +7,8 @@ function Post(props) {
     console.log(props.post._id);
     // const l=state.loc.split(":")
     // const PF="http:"+l[0] + "images/";
-    const PF=state.loc+"images/"
+    // const PF=state.loc+"images/"
+    const PF="http:"+state.loc?.split(":")[1] + "images/";
     return (
         <div className="post">
             {props.post.photo &&
