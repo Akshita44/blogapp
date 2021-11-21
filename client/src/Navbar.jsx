@@ -7,7 +7,8 @@ import {Context} from "./App"
 function Navbar() {
     const {state,dispatch}=useContext(Context)
     const history=useHistory()
-    console.log(state.loc.split(":"));
+    console.log(typeof(state.loc));
+    console.log(state.loc?.split(":"));
     // const l=state.loc.split(":")
     // console.log(l)
     // console.log(l[0])
