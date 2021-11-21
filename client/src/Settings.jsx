@@ -51,9 +51,9 @@ function Settings() {
         if(!state.user)
         history.push("/login")
     },[state])
-    const l=state.loc.split(":")
-    const PF="http:"+l[0] + "images/";
-    // const PF=state.loc + "images/";
+    // const l=state.loc.split(":")
+    // const PF="http:"+l[0] + "images/";
+    const PF=state.loc + "images/";
     return (
         <div className="settings">
             <div className="settingsWrapper">

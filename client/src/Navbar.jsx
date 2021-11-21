@@ -8,13 +8,13 @@ function Navbar() {
     const {state,dispatch}=useContext(Context)
     const history=useHistory()
     console.log(state.loc);
-    const l=state.loc.split(":")
-    console.log(l)
-    console.log(l[0])
-    const PF="http:"+ l[0] + "images/";
-    console.log(PF);
+    // const l=state.loc.split(":")
+    // console.log(l)
+    // console.log(l[0])
+    // const PF="http:"+ l[0] + "images/";
+    // console.log(PF);
     
-    // const PF=state.loc + "images/";
+    const PF=state.loc + "images/";
     const clear=async()=>{
             const res=await fetch("/auth/logout",{
                 method:"GET",
