@@ -15,7 +15,8 @@ function Navbar() {
     // const PF="http:"+ l[0] + "images/";
     // console.log(PF);
     
-    const PF=state.loc + "images/";
+    const PF="http:"+state.loc?.split(":")[1] + "images/";
+    console.log(PF);
     const clear=async()=>{
             const res=await fetch("/auth/logout",{
                 method:"GET",
