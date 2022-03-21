@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import "./post.css"
 import {Link} from "react-router-dom"
 import {Context} from "./App"
-import post from '../../../../blogapp/client/src/post'
 function Post(props) {
     const {state}=useContext(Context)
     console.log(props.post._id);
