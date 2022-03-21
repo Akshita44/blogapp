@@ -13,7 +13,7 @@ function Post(props) {
     return (
         <div className="post">
             {props.post.photo &&
-                     <Link to={`/singlepost/:${props.post._id}`}><img src={post.fileimg ? post.fileimg : PF + props.post.photo || props.post.photo} 
+                     <Link to={`/singlepost/:${props.post._id}`}><img src={props.post.fileimg ? props.post.fileimg : PF + props.post.photo || props.post.photo} 
                      className="postimg" alt="" /></Link>
             }
             <div className="postinfo">
