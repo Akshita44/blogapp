@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import "./post.css"
 import {Link} from "react-router-dom"
 import {Context} from "./App"
+import post from '../../../../blogapp/client/src/post'
 function Post(props) {
     const {state}=useContext(Context)
     console.log(props.post._id);
@@ -12,7 +13,7 @@ function Post(props) {
     return (
         <div className="post">
             {props.post.photo &&
-                     <Link to={`/singlepost/:${props.post._id}`}><img src={PF + props.post.photo || props.post.photo} 
+                     <Link to={`/singlepost/:${props.post._id}`}><img src={post.fileimg ? post.fileimg : PF + props.post.photo || props.post.photo} 
                      className="postimg" alt="" /></Link>
             }
             <div className="postinfo">

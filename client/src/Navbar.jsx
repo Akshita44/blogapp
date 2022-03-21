@@ -72,7 +72,7 @@ function Navbar() {
             <div className="navright">
                 {state.user?.profilepic ?
                <Link to="/about"><img src={PF + state.user.profilepic} alt="" className="navimg"/></Link>:
-               <Link to="/about"><i className="fa-solid fa-user-large navimg"></i></Link>
+               <Link to="/about"><i className="fa-solid fa-user-large navicon"></i></Link>
 
                 }
                 <i class="fas fa-search"></i>            

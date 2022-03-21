@@ -62,7 +62,7 @@ function Singlepost(props) {
         <div className="singlepost">
             <div className="singlepostwrapper">
             {post.photo && 
-            <img src={PF + post.photo || post.photo} className="singlepostimg" alt="" />
+            <img src={post.fileimg ? post.fileimg : PF + post.photo || post.photo} className="singlepostimg" alt="" />
             } 
             {!update ? (
                 <>

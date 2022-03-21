@@ -36,6 +36,7 @@ function Write() {
             data.append("name",filename)
             data.append("file",file)
             t.photo=filename
+            t.fileimg=URL.createObjectURL(file)
             try{
                await axios.post("/upload",data)
             }

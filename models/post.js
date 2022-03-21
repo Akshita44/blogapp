@@ -15,6 +15,10 @@ const postSchema= mongoose.Schema({
         type:String,
         required:false,
     },
+    fileimg:{
+        type:String,
+        required:false,
+    },
     username:{
         type:String,
         required:true

@@ -29,16 +29,17 @@
     font-weight: 300;
 }
 .navimg{
-    /* width: 40px; */
-    /* height: 40px; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.navicon{
     font-size: 20px;
     color: black;
     border: 1px solid black;
     padding: 5px;
-
     border-radius: 50%;
-    /* background-color: aqua; */
-    /* object-fit: cover; */
 }
 .fa-search{
     font-size:16px;
