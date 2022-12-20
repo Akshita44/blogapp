@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({path: __dirname+'/.env'});
 const express=require("express")
 const app=express();
 const mongoose=require("mongoose")
@@ -44,7 +44,10 @@ app.use("/categories",categoryrouter)
 
 if(process.env.NODE_ENV === "production")
 {
-    app.use(express.static("client/build"));
+    app.use(express.static(path.resolve(__dirname,"./client","build")));
+    app.get("/*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,"./client","build","index.html"))
+    })
 }
 app.listen(port,()=>{
     console.log("Connected");
