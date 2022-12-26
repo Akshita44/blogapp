@@ -1,20 +1,31 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./register.css"
 import {Link,useHistory} from "react-router-dom"
 import axios from 'axios'
+import { Context } from './App'
+import Loader from './Loader'
 function Register() {
     const [username,setusername]=useState("")
     const [email,setemail]=useState("")
     const [password,setpassword]=useState("")
     const history=useHistory()
+    const {state,isLoading,setisLoading}=useContext(Context)
+    useEffect(()=>{
+        if(state.user)
+        {
+            history.push("/")
+        }
+    },[state.user])
     const handleSubmit=async(e)=>{
         try{
             e.preventDefault()
+            setisLoading(true)
         const d=await axios.post("/auth/register",{username,email,password})
-        console.log(d);
+        // console.log(d);
+        setisLoading(false)
         if(!d || d.status !== 201)
         {
-            alert("Invalid Credentials")
+            alert("Invalid Credentials/Details should be unique")
         }
         else{
             alert("User Registered")
@@ -28,6 +39,8 @@ function Register() {
         }
 
     return (
+        <>
+        {isLoading && <Loader></Loader>}
         <div className="Registerpage">
              <form className="Registerform">
                 <h1 className="Registertitle">Register</h1>
@@ -43,6 +56,7 @@ function Register() {
              </form>    
 
         </div>
+        </>
     )
 }
 

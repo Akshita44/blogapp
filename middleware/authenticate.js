@@ -4,8 +4,6 @@ const Users=require("../models/user");
 const authenticate=async function(req,res,next){
     try{
         const token=req.cookies.jwt;
-        console.log(token);
-        console.log("hellllllllllooo");
         const verify=jwt.verify(token,process.env.SECRET_KEY);
         console.log(verify);
         const data= await Users.findOne({_id:verify._id});
@@ -16,7 +14,6 @@ const authenticate=async function(req,res,next){
     }
     catch(err)
     {
-        console.log("hellllllllllooo");
         res.status(400).send(err);
     }
 }

@@ -46,9 +46,11 @@ router.put("/:id",async(req,res)=>{
 
 router.delete("/delete/:id",async(req,res)=>{
     try{
+        console.log(req.params.id);
         const post=await Posts.findById(req.params.id)
-        console.log(req.body.username);
-        if(post.username === req.body.username)
+        console.log(post);
+        console.log("helllllllloooooooo",req.body.username);
+        if(post.username === req.body.username || req.body.role === "admin")
         {
             await Posts.findByIdAndDelete(req.params.id);
             res.status(200).send("Post is deleted!!")
@@ -63,10 +65,21 @@ router.delete("/delete/:id",async(req,res)=>{
     }
 })
 
+router.get("/count",async(req,res)=>{
+    try{
+    const d = await Posts.countDocuments();
+    console.log(d);
+    res.status(200).send(d.toString());
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
 router.get("/:id",async(req,res)=>{
     try{
     const d = await Posts.findById(req.params.id);
-    // console.log(JSON.parse(d));
     res.status(200).send(d);
     }
     catch(e)
@@ -75,28 +88,38 @@ router.get("/:id",async(req,res)=>{
     }
 })
 
+
 router.get("/",async(req,res)=>{
     const user= req.query.user
     const cat=req.query.cat
+    const page=req.query.page
+    var query=Posts.find()
    
     try{
+        if(page)
+        {
+            const currentpage=Number(page) || 1;
+            const skip=6 * (currentpage-1);
+            query= query.limit(6).skip(skip);
+        // res.status(200).json(d);
+        }
         if(user)
         {
-            const d = await Posts.find({username:user});
-        res.status(200).json(d);
+            query= query.find({username:user});
+        // res.status(200).json(d);
 
         }
-        else if(cat)
+        if(cat)
         {
-        const d = await Posts.find({categories:{$in:[cat]}});
+        query= query.find({categories:{$in:[cat]}});
+        // res.status(200).json(d);
+        }
+        // console.log("Hello");
+        // console.log(query);
+        const d = await query;
+        // console.log(d);
         res.status(200).json(d);
 
-        }
-        else{
-        const d = await Posts.find();
-        console.log(d);
-        res.status(200).json(d);
-        }
         // res.status(200).json(d);
     }
     catch(e)

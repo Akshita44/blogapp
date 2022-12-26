@@ -3,76 +3,97 @@ import "./write.css"
 import {Context} from "./App"
 import axios from 'axios'
 import {useHistory} from "react-router-dom"
+import Loader from './Loader'
+export const getBase64 = file => {
+    return new Promise(resolve => {
+      let baseURL = "";
+      // Make new FileReader
+      let reader = new FileReader();
+
+      // Convert the file to base64 text
+      reader.readAsDataURL(file);
+
+      // on reader load somthing...
+      reader.onload = () => {
+        // Make a fileInfo Object
+        // console.log("Called", reader);
+        baseURL = reader.result;
+        console.log(baseURL);
+        resolve(baseURL);
+      };
+    //   console.log(fileInfo);
+    });
+  };
 function Write() {
-    const {state}=useContext(Context)
+    const {state,isLoading,setisLoading}=useContext(Context)
     const [title,setitle]=useState("")
     const [cat,setcat]=useState("")
     const [desc,setdesc]=useState("")
     const [file,setfile]=useState("")
     const [u,setu]=useState("")
     const history=useHistory()
-    const username=state.user.username || u.username;
-    // const handlechange=async(e)=>{
-    //     console.log(e.target.value);
-    //     setcat(e.target.value)
-    // }
-    // console.log(username);
-    const handleSubmit=async(e)=>{
-        e.preventDefault();
-        // console.log(".......");
-        // console.log(state.user);
-        // console.log(state.user.username);
-        try{
-        const c=await axios.post("/categories",{name:cat})
-        console.log(c.data);
-        }
-        catch{}
-        const t={username,title,desc,categories:[cat]}
-        if(file)
+    const handlecatchange=(e)=>{
+        if(e.target.value)
         {
-            const data= new FormData()
-            console.log(data);
-            const filename=Date.now()+file.name
-            data.append("name",filename)
-            data.append("file",file)
-            t.photo=filename
-            t.fileimg=URL.createObjectURL(file)
-            try{
-               await axios.post("/upload",data)
-            }
-            catch(err)
-            {}
-        }
-        try{
-            const d=await axios.post("/post/",t)
-        console.log(d.status);
-        if(d.status === 201)
-        {
-            history.push(`/`)
+            setcat(e.target?.value[0].toUpperCase()+e.target.value?.toLowerCase().slice(1))
         }
         else{
-            alert("Wrong Details.(Check your title, it must be unique)")
+            setcat("")
         }
-
+    }
+    const handleSubmit=async(e)=>{
+        e.preventDefault();
+        setisLoading(true)
+        try{
+        const c=await axios.post("/categories",{name:cat})
+        // console.log(c.data);
+        }
+        catch{}
+        const username=state.user.username || u.username;
+        const t={username,title,desc,categories:cat}
+        if(file)
+        {
+            const document= await getBase64(file)
+            t.photo=document
+        }
+        try{
+            if(!desc || !title)
+            {
+                alert("Fill the details-Title and description are mandatory")
+                return
+            }
+            const d=await axios.post("/post/",t)
+            // console.log(d.status);
+            setisLoading(false)
+            if(d.status === 201)
+            {
+                history.push(`/`)
+            }
+            else{
+                alert("Wrong Details.(Check your title, it must be unique)")
+            }
         }
         catch(err)
         {
             alert("Wrong Details.(Check your title, it must be unique)")
         }
-        
-
     }
     useEffect(()=>{
         try{
-            state.user.then((e)=>{
-                // console.log(e);
-                setu(e)
-            })
+            if(state.user)
+            {
+                setu(state.user)
+            }
+            else{
+                history.push("/login")
+            }
         }
         catch(err)
         {}
-    },[])
+    },[state.user])
     return (
+        <>
+        {isLoading && <Loader></Loader>}
         <div>
             {file && 
             <img src={URL.createObjectURL(file)} className="writeimg" alt="" />
@@ -90,13 +111,14 @@ function Write() {
             </div>
             <div className="writeFormGroups">
             <input type="text" className="writeinputcat" placeholder="Add a Category" autoFocus={true} 
-            onChange={(e)=>{setcat(e.target.value[0].toUpperCase()+e.target.value.toLowerCase().slice(1))}}/>
+            onChange={(e)=>{handlecatchange(e)}}/>
                 <textarea type="text" placeholder="Tell your story..." className="writeinput writetext"
                 onChange={(e)=>{setdesc(e.target.value)}}></textarea>
             </div>
             <button type="submit" className="writebutton" onClick={handleSubmit}>Publish</button>
             </form>
         </div>
+        </>
     )
 }
 

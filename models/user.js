@@ -21,15 +21,10 @@ const userSchema= mongoose.Schema({
         type:String,
         default:"",
     },
-    tokens:[
-        {
-            token:{
-                type:String,
-                required:true
-            }
-
-        }
-    ]
+    role:{
+        type:String,
+        default:"user"
+    }
 },
 {timestamps:true}
 );
@@ -37,8 +32,6 @@ const userSchema= mongoose.Schema({
 userSchema.methods.getauthtoken=async function(){
     try{
         const token=await jwt.sign({_id:this._id},process.env.SECRET_KEY);
-        this.tokens=this.tokens.concat({token});
-        await this.save();
         return token
     }
     catch(err)

@@ -6,7 +6,7 @@ import Write from './write';
 import Settings from './Settings';
 import Login from "./Login"
 import Register from './register';
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import {BrowserRouter as Router,Route,Switch} from "react-router-dom"
 import reducer,{ initialState } from './reducer';
 export const Context=React.createContext()
@@ -39,10 +39,11 @@ useEffect(()=>{
     check();
 },[])
 const [state,dispatch]=useReducer(reducer,initialState)
+const [isLoading,setisLoading]=useState(false)
 console.log(state);
   return (
     <>
-    <Context.Provider value={{state,dispatch}}>
+    <Context.Provider value={{state,dispatch,isLoading,setisLoading}}>
     <Router>
     <Navbar/>
     <Switch>

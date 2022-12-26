@@ -11,10 +11,10 @@ router.get("/getdata",authenticate,(req,res)=>{
 })
 router.get("/logout",authenticate,async(req,res)=>{
     res.clearCookie("jwt");
-    req.user.tokens=req.user.tokens.filter((element)=>{
-            return req.token !== element.token;
-    })
-    await req.user.save();
+    // req.user.tokens=req.user.tokens.filter((element)=>{
+    //         return req.token !== element.token;
+    // })
+    // await req.user.save();
     res.status(200).send("user logged out");
 })
 router.post("/register",async(req,res)=>{
@@ -79,15 +79,26 @@ router.put("/update/:id",async(req,res)=>{
     try{
         if(req.params.id === req.body._id)
         {
-            if(!req.body.username || !req.body.email || !req.body.password)
+            const u=await Users.findById(req.params.id)
+            if(req.body.username)
             {
-                throw new Error("Fill the credentials")
+                try{
+                const data=Posts.find({username:u.username})
+                data.forEach(async(element) => {
+                    element.username=req.body.username
+                    await element.save();
+                });
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
             }
-            console.log("....................");
-            console.log(req.body);
-            console.log("hello");
+            if(req.body.password)
+            {
             req.body.password = await bcryptjs.hash(req.body.password,12);
             console.log(req.body.password);
+            }
             const d = await Users.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true});
             console.log(d);
             res.status(200).send(d)
@@ -113,29 +124,21 @@ router.get("/:id",async(req,res)=>{
     }
 
 })
+router.delete("/delete/:id",async(req,res)=>{
+    try{
+        if(req.body.role === "admin")
+        {
+            await Users.findByIdAndDelete(req.params.id);
+            res.status(200).send("User is deleted!!")
+        }
+        else{
+            res.status(400).send("You can only delete your own account!!!");
+        }
+    }
+    catch(e)
+    {
+        res.status(400).send(e);
+    }
+})
 
-// router.get("/about",auth,(req,res)=>{
-//     res.status(200).send(req.user);
-// })
-// router.get("/getdata",auth,(req,res)=>{
-//     res.status(200).send(req.user);
-// })
-// router.post("/contact",auth,async(req,res)=>{
-//     try{
-//         const data=await Users.findOne({_id:req.user._id})
-//         if(data)
-//         {
-//             const message=data.getmessage(req.body);
-//             // await data.save();
-//             console.log(message);
-//             res.status(200).json("message sent successfully");
-//         }
-//     }
-//     catch(err)
-//     {
-//         res.status(400).send(err)
-//         console.log(err);
-//     }
-   
-// })
 module.exports=router;

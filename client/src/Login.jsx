@@ -1,20 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./login.css"
 import {Link,useHistory} from "react-router-dom"
 import axios from 'axios'
 import {Context} from "./App"
+import Loader from './Loader'
 function Login() {
-    const {dispatch}=useContext(Context)
+    const {dispatch,state,isLoading,setisLoading}=useContext(Context)
     const [email,setemail]=useState("")
     const [password,setpassword]=useState("")
     const history=useHistory()
+    useEffect(()=>{
+        if(state.user)
+        {
+            history.push("/")
+        }
+    },[state.user])
     const handleSubmit=async(e)=>{
         try{
             e.preventDefault()
+            setisLoading(true)
+        if(!email || !password)
+        {
+          alert("Fill the details")
+          throw new Error("Fill the credentials")
+        }
         const d=await axios.post("/auth/login",{email,password})
         console.log(d);
-        // console.log(d.data);
-        // console.log(d.data.username);
+        setisLoading(false)
         if(!d || d.status !== 201)
         {
             alert("Invalid Credentials")
@@ -30,11 +42,13 @@ function Login() {
         }
         catch(err)
         {
-            alert("Invalid Details")
+            // alert("Invalid Details")
         }
         
     }
     return (
+        <>
+        {isLoading && <Loader></Loader>}
         <div className="loginpage">
              <form className="loginform">
                 <h1 className="logintitle">Login</h1>
@@ -46,6 +60,7 @@ function Login() {
                 <Link to="/register" className="registerbutton">Register</Link>
              </form>    
         </div>
+        </>
     )
 }
 
