@@ -44,17 +44,28 @@ function Write() {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         setisLoading(true)
+        const createdBy=state.user._id || u._id;
+        console.log("createdby",createdBy,state.user._id,u._id);
+        const t={createdBy,title,desc}
         try{
-        const c=await axios.post("/categories",{name:cat})
-        // console.log(c.data);
+            if(cat)
+            {
+                await axios.post("/categories",{name:cat})
+                t.categories=cat
+            }
         }
         catch{}
-        const username=state.user.username || u.username;
-        const t={username,title,desc,categories:cat}
+      
+        console.log("t",t);
         if(file)
         {
-            const document= await getBase64(file)
-            t.photo=document
+            console.log(file);
+            const formData = new FormData();
+            const filename=Date.now()+file.name
+            formData.append("name",filename)
+            formData.append("image", file);
+            const result = await axios.post(`/image/upload?folder=post`,formData)
+            t.photo=result.data.data.url
         }
         try{
             if(!desc || !title)
@@ -63,7 +74,6 @@ function Write() {
                 return
             }
             const d=await axios.post("/post/",t)
-            // console.log(d.status);
             setisLoading(false)
             if(d.status === 201)
             {

@@ -1,11 +1,12 @@
 import React  from 'react'
 import "./post.css"
 import {Link} from "react-router-dom"
+import baseUrl from './constant'
 function Post(props) {
     return (
         <div className="post">
             {props.post.photo &&
-                     <Link to={`/singlepost/:${props.post._id}`}><img src={props.post.photo} 
+                     <Link to={`/singlepost/:${props.post._id}`}><img src={`${baseUrl}${props.post.photo}`} 
                      className="postimg" alt="" /></Link>
             }
             <div className="postinfo">

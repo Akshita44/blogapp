@@ -15,8 +15,9 @@ const postSchema= mongoose.Schema({
         type:String,
         required:false,
     },
-    username:{
-        type:String,
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user",
         required:true
     },
     categories:{

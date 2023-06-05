@@ -15,32 +15,33 @@ function Settings() {
     const handlechange=(e)=>{
         setupdate({...update,[e.target.name]:e.target.value})
     }
+
+    useEffect(()=>{
+        if(!state.user)
+        history.push("/login")
+    },[state])
+
     const handleSubmit=async(e)=>{
         e.preventDefault()
         setisLoading(true)
-        // console.log(update);
         var t={...update}
-        try{
-        if(t.username || file)
-        {
-            const l=await axios.put(`/comment/userid/${_id}`,t)
-        }
-        }
-        catch(e)
-        {
-            console.log(e);
-        }
-        // console.log(file);
         if(file)
         {
-           const profilepic=await getBase64(file)
+            if(state.user?.profilepic)
+            {
+                console.log(state.user.profilepic);
+                const result = await axios.post(`/image/delete`,{filepath:state.user?.profilepic})
+                console.log("res",result);
+            }
+            const formData = new FormData();
+            const filename=Date.now()+file.name
+            formData.append("name",filename)
+            formData.append("image", file);
+            const result = await axios.post(`/image/upload?folder=user`,formData)
+            const profilepic=result.data.data.url
            t={...t,profilepic}
         }
-        // console.log(update);
         const d=await axios.put(`/auth/update/${_id}`,t)
-        console.log(d);
-        console.log(d.data);
-        setisLoading(false)
         if(d.status === 200)
         {
             dispatch({
@@ -53,13 +54,10 @@ function Settings() {
         {
             alert("Fill the credentials")
         }
+        setisLoading(false)
 
     }
-    useEffect(()=>{
-        if(!state.user)
-        history.push("/login")
-    },[state])
-
+   
     return (
         <>
         {isLoading && <Loader></Loader>}

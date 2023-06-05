@@ -1,20 +1,15 @@
 const express=require("express")
 const router=new express.Router();
-// const bcryptjs=require("bcryptjs");
-// const Users=require("../models/user");
 const Posts=require("../models/post");
 
 router.post("/",async(req,res)=>{
     try{
-        // console.log(req.body);
-        const {title,desc,username}=req.body;
-        if(!username || !desc || !title )
+        const {title,desc,createdBy}=req.body;
+        if(!createdBy || !desc || !title )
         {
-            console.log(username,desc,title);
             throw new Error("Fill the credentials")
         }
         const data=new Posts(req.body);
-        console.log(data);
         const d=await data.save();
         res.status(201).send(d);
     }
@@ -27,11 +22,10 @@ router.post("/",async(req,res)=>{
 
 router.put("/:id",async(req,res)=>{
     try{
-        const post=await Posts.findById(req.params.id)
-        if(post.username === req.body.username)
+        const post=await Posts.findById(req.params.id).populate({path:"createdBy",select:["_id"]})
+        if(post.createdBy._id.toString() === req.body.createdBy._id)
         {
             const d=await Posts.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true})
-            console.log(d);
             res.status(200).send("Post is updated!!")
         }
         else{
@@ -46,11 +40,8 @@ router.put("/:id",async(req,res)=>{
 
 router.delete("/delete/:id",async(req,res)=>{
     try{
-        console.log(req.params.id);
-        const post=await Posts.findById(req.params.id)
-        console.log(post);
-        console.log("helllllllloooooooo",req.body.username);
-        if(post.username === req.body.username || req.body.role === "admin")
+        const post=await Posts.findById(req.params.id).populate({path:"createdBy",select:["_id"]})
+        if(post.createdBy._id.toString() === req.body.createdBy._id || req.body.role === "admin")
         {
             await Posts.findByIdAndDelete(req.params.id);
             res.status(200).send("Post is deleted!!")
@@ -68,7 +59,6 @@ router.delete("/delete/:id",async(req,res)=>{
 router.get("/count",async(req,res)=>{
     try{
     const d = await Posts.countDocuments();
-    console.log(d);
     res.status(200).send(d.toString());
     }
     catch(e)
@@ -79,7 +69,7 @@ router.get("/count",async(req,res)=>{
 
 router.get("/:id",async(req,res)=>{
     try{
-    const d = await Posts.findById(req.params.id);
+    const d = await Posts.findById(req.params.id).populate({path:"createdBy"});
     res.status(200).send(d);
     }
     catch(e)
@@ -101,26 +91,18 @@ router.get("/",async(req,res)=>{
             const currentpage=Number(page) || 1;
             const skip=6 * (currentpage-1);
             query= query.limit(6).skip(skip);
-        // res.status(200).json(d);
         }
         if(user)
         {
-            query= query.find({username:user});
-        // res.status(200).json(d);
+            query= query.find().populate({path:"createdBy",select:["username"],match:{username:user}});
 
         }
         if(cat)
         {
         query= query.find({categories:{$in:[cat]}});
-        // res.status(200).json(d);
         }
-        // console.log("Hello");
-        // console.log(query);
         const d = await query;
-        // console.log(d);
         res.status(200).json(d);
-
-        // res.status(200).json(d);
     }
     catch(e)
     {

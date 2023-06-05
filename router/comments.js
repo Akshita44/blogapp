@@ -4,14 +4,12 @@ const Comments=require("../models/Comments");
 
 router.post("/",async(req,res)=>{
     try{
-        console.log(req.body);
-        const {comment,username,userID,postID}=req.body;
-        if(!username || !comment || !userID || !postID)
+        const {comment,createdBy,onpost}=req.body;
+        if(!comment || !createdBy || !onpost)
         {
             throw new Error("Fill the credentials")
         }
         const data=new Comments(req.body);
-        console.log(data);
         const d=await data.save();
         res.status(201).send(d);
     }
@@ -23,7 +21,7 @@ router.post("/",async(req,res)=>{
 })
 router.get("/",async(req,res)=>{
     try{
-    const d = await Comments.find();
+    const d = await Comments.find().populate({path:"createdBy"});
     res.status(200).send(d);
     }
     catch(e)
@@ -34,30 +32,8 @@ router.get("/",async(req,res)=>{
 
 router.get("/postid/:id",async(req,res)=>{
     try{
-    const d = await Comments.find({postID:req.params.id});
+    const d = await Comments.find({onpost:req.params.id}).populate({path:"createdBy"})
     res.status(200).send(d);
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-})
-
-router.put("/userid/:id",async(req,res)=>{
-    try{
-        var t={}
-        console.log(req.body);
-        if(req.body.username)
-        {
-            t.username=req.body.username
-        }
-        if(req.body.profilepic)
-        {
-            t.profilepic=req.body.profilepic
-        }
-        console.log("hellooo",t);
-    const data=await Comments.updateMany({userID:req.params.id},{$set:t});
-    res.status(201).send(data);
     }
     catch(e)
     {
@@ -66,10 +42,8 @@ router.put("/userid/:id",async(req,res)=>{
 })
 router.delete("/delete/:id",async(req,res)=>{
     try{
-        console.log(req.params.id);
-        const c=await Comments.findById(req.params.id)
-        console.log(req.body.username);
-        if(c.username === req.body.username || req.body.role === "admin")
+        const c=await Comments.findById(req.params.id).populate({path:"createdBy"})
+        if(c.createdBy._id.toString() === req.body.createdBy._id || req.body.role === "admin")
         {
             await Comments.findByIdAndDelete(req.params.id);
             res.status(200).send("Post is deleted!!")

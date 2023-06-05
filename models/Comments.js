@@ -5,24 +5,24 @@ const commentSchema= mongoose.Schema({
             type:String,
             required:true
         },
-        userID:{
-            type:mongoose.Schema.ObjectId,
+        createdBy:{
+            type:mongoose.Schema.Types.ObjectId,
             ref:"user",
             required:true
         },
-        postID:{
-            type:mongoose.Schema.ObjectId,
+        onpost:{
+            type:mongoose.Schema.Types.ObjectId,
             ref:"post",
             required:true
         },
-        username:{
-            type:String,
-            required:true
-        },
-        profilepic:{
-            type:String,
-            required:false
-        },
+        // username:{
+        //     type:String,
+        //     required:true
+        // },
+        // profilepic:{
+        //     type:String,
+        //     required:false
+        // },
 
     },
 { timestamps : true}

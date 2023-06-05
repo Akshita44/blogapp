@@ -21,8 +21,6 @@ function Register() {
             e.preventDefault()
             setisLoading(true)
         const d=await axios.post("/auth/register",{username,email,password})
-        // console.log(d);
-        setisLoading(false)
         if(!d || d.status !== 201)
         {
             alert("Invalid Credentials/Details should be unique")
@@ -31,12 +29,13 @@ function Register() {
             alert("User Registered")
             history.push("/login")
         }
-    }
-    catch(e)
-    {
-        alert("Invalid Details")
-    }
         }
+        catch(e)
+        {
+            alert("Invalid Details")
+        }
+        setisLoading(false)
+    }
 
     return (
         <>

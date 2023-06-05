@@ -25,8 +25,7 @@ function Login() {
           throw new Error("Fill the credentials")
         }
         const d=await axios.post("/auth/login",{email,password})
-        console.log(d);
-        setisLoading(false)
+      
         if(!d || d.status !== 201)
         {
             alert("Invalid Credentials")
@@ -42,9 +41,9 @@ function Login() {
         }
         catch(err)
         {
-            // alert("Invalid Details")
+            alert("Invalid Details")
         }
-        
+        setisLoading(false)
     }
     return (
         <>

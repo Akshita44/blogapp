@@ -10,17 +10,20 @@ app.use(express.urlencoded({limit: '50mb'}));
 app.use(express.json())
 app.use(cookieparser())  
 app.use("/images",express.static(path.join(__dirname,"/images")))
+app.use("/public",express.static(path.join(__dirname,"/public")))
 // app.use(express.urlencoded({extended:false}));
 const userrouter=require("./router/auth");
 const postrouter=require("./router/posts");
 const categoryrouter=require("./router/category")
 const commentsrouter=require("./router/comments")
+const imagerouter=require("./router/imageupload")
 const port= process.env.PORT || 8000
 
 app.use("/auth",userrouter)
 app.use("/post",postrouter)
 app.use("/categories",categoryrouter)
 app.use("/comment",commentsrouter)
+app.use("/image",imagerouter)
 
 // if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "prod")
 // {
