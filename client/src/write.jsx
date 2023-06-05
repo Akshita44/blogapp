@@ -86,6 +86,7 @@ function Write() {
         }
         catch(err)
         {
+            console.log(err);
             alert("Wrong Details.(Check your title, it must be unique)")
         }
     }
