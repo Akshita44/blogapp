@@ -81,13 +81,15 @@ function Write() {
             }
             else{
                 console.log(d);
-                alert("Wrong Details.(Check your title, it must be unique)")
+                alert(d)
+                // alert("Wrong Details.(Check your title, it must be unique)")
             }
         }
         catch(err)
         {
             console.log(err);
-            alert("Wrong Details.(Check your title, it must be unique)")
+            alert(err);
+            // alert("Wrong Details.(Check your title, it must be unique)")
         }
     }
     useEffect(()=>{
