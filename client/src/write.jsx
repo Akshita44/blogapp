@@ -52,6 +52,7 @@ function Write() {
             alert("Fill the details-Title and description are mandatory")
             return
         }
+        else{
         const t={createdBy,title,desc}
         try{
             if(cat)
@@ -90,6 +91,7 @@ function Write() {
             console.log(err);
             alert(err);
             // alert("Wrong Details.(Check your title, it must be unique)")
+        }
         }
         setisLoading(false)
     }
