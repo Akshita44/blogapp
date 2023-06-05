@@ -71,10 +71,10 @@ function Write() {
             if(!desc || !title)
             {
                 alert("Fill the details-Title and description are mandatory")
+                setisLoading(false)
                 return
             }
             const d=await axios.post("/post/",t)
-            setisLoading(false)
             if(d.status === 201)
             {
                 history.push(`/`)
@@ -91,6 +91,7 @@ function Write() {
             alert(err);
             // alert("Wrong Details.(Check your title, it must be unique)")
         }
+        setisLoading(false)
     }
     useEffect(()=>{
         try{
