@@ -25,7 +25,7 @@ function Sidebar() {
               <Accordion.Body style={{height:"300px",maxheight:"400px",overflow:"auto"}}>
               
                 {cat.map((e)=>(
-                  <div className="categories" style={{borderBottom:"1px solid rgba(0,0,0,0.2)",marginBottom:"0px"}}>
+                  <div className="categories" key={e._id} style={{borderBottom:"1px solid rgba(0,0,0,0.2)",marginBottom:"0px"}}>
                 <p><Link to={`/?cat=${e.name}`} className="link">{e.name[0].toUpperCase()+e.name.toLowerCase().slice(1)}</Link></p>
                 </div>
              ))} 

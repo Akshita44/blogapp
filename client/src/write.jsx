@@ -46,6 +46,12 @@ function Write() {
         setisLoading(true)
         const createdBy=state.user._id || u._id;
         console.log("createdby",createdBy,state.user._id,u._id);
+        if(!desc || !title)
+        {
+            setisLoading(false)
+            alert("Fill the details-Title and description are mandatory")
+            return
+        }
         const t={createdBy,title,desc}
         try{
             if(cat)
@@ -55,7 +61,6 @@ function Write() {
             }
         }
         catch{}
-      
         console.log("t",t);
         if(file)
         {
@@ -68,12 +73,7 @@ function Write() {
             t.photo=result.data.data.url
         }
         try{
-            if(!desc || !title)
-            {
-                alert("Fill the details-Title and description are mandatory")
-                setisLoading(false)
-                return
-            }
+          
             const d=await axios.post("/post/",t)
             if(d.status === 201)
             {
