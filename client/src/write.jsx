@@ -80,6 +80,7 @@ function Write() {
                 history.push(`/`)
             }
             else{
+                console.log(d);
                 alert("Wrong Details.(Check your title, it must be unique)")
             }
         }
