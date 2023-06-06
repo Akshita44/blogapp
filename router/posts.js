@@ -80,7 +80,7 @@ router.get("/:id",async(req,res)=>{
 
 
 router.get("/",async(req,res)=>{
-    const user= req.query.user
+    const id= req.query.user
     const cat=req.query.cat
     const page=req.query.page
     var query=Posts.find()
@@ -92,9 +92,9 @@ router.get("/",async(req,res)=>{
             const skip=6 * (currentpage-1);
             query= query.limit(6).skip(skip);
         }
-        if(user)
+        if(id)
         {
-            query= query.find().populate({path:"createdBy",select:["username"],match:{username:user}});
+            query= query.find({createdBy:id}).populate({path:"createdBy"});
 
         }
         if(cat)
@@ -106,6 +106,7 @@ router.get("/",async(req,res)=>{
     }
     catch(e)
     {
+        console.log(e);
         res.status(400).send(e)
     }
 })

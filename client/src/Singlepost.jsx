@@ -5,7 +5,6 @@ import Sidebar from "./sidebar";
 import {Link} from "react-router-dom"
 import "./Singlepost.css"
 import {Context} from "./App"
-import { getBase64 } from './write'
 import Accordion from 'react-bootstrap/Accordion';
 import Loader from './Loader'
 import baseUrl from './constant'
@@ -158,7 +157,7 @@ function Singlepost(props) {
                 )}
             </h1>
                 <div className="singlepostinfo">
-            <Link to={`/?user=${post.createdBy?.username}`} className="link"><span>Author: {post?.createdBy?.username}</span></Link>
+            <Link to={`/?user=${post.createdBy?._id}`} className="link"><span>Author: {post.createdBy?.username}</span></Link>
             <span>{new Date(post.createdAt).toDateString()}</span>
             </div>
             <p className="singlepostdesc">{post.desc}</p>

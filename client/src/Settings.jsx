@@ -4,7 +4,6 @@ import "./settings.css"
 import {Context} from "./App"
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { getBase64 } from './write'
 import Loader from './Loader'
 function Settings() {
     const {state,dispatch,isLoading,setisLoading}=useContext(Context)
