@@ -35,7 +35,7 @@ function Singlepost(props) {
             try{
 
                 setisLoading(true)
-                const d=await axios.get(`/post/${id}`)
+                const d=await axios.get(`/posts/${id}`)
                 setpost(d.data)
 
             }
@@ -105,7 +105,7 @@ function Singlepost(props) {
             const result = await axios.post(`/image/upload?folder=post`,formData)
             t.photo=result.data.url
         }
-        const d=await axios.put(`/post/${id}`,t)
+        const d=await axios.put(`/posts/${id}`,t)
         setisLoading(false)
         alert("Post is Updated!!")
         history.push("/")
@@ -142,18 +142,18 @@ function Singlepost(props) {
                 {post.title}
                 {state.user?.role === "admin" &&(
                     <div className="singlepostedit">
-                    <i class="far fa-trash-alt" target="Delete post" onClick={()=>handledelete(`/post/delete/${id}`,{createdBy:post?.createdBy})}></i>
+                    <i class="far fa-trash-alt" target="Delete post" onClick={()=>handledelete(`/posts/delete/${id}`,{createdBy:post?.createdBy})}></i>
                     </div>
                 )}
                 {( state.user?.role !== "admin" && post && post?.createdBy && post?.createdBy?.username === state.user?.username) ?
                 <div className="singlepostedit">
                 <i class="far fa-edit" target="Edit post" onClick={(e)=>setupdate(true)}></i>
-                <i class="far fa-trash-alt"  target="Delete post" onClick={()=>handledelete(`/post/delete/${id}`,{createdBy:post?.createdBy})}></i>
+                <i class="far fa-trash-alt"  target="Delete post" onClick={()=>handledelete(`/posts/delete/${id}`,{createdBy:post?.createdBy})}></i>
                 </div>
                 :(post.createdBy.username === u) &&(
                     <div className="singlepostedit">
                 <i class="far fa-edit" target="Edit post" onClick={(e)=>setupdate(true)}></i>
-                <i class="far fa-trash-alt" target="Delete post" onClick={()=>handledelete(`/post/delete/${id}`,{createdBy:post?.createdBy})}></i>
+                <i class="far fa-trash-alt" target="Delete post" onClick={()=>handledelete(`/posts/delete/${id}`,{createdBy:post?.createdBy})}></i>
                 </div>
                 )}
             </h1>

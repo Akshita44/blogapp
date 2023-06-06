@@ -20,7 +20,7 @@ const imagerouter=require("./router/imageupload")
 const port= process.env.PORT || 8000
 
 app.use("/auth",userrouter)
-app.use("/post",postrouter)
+app.use("/posts",postrouter)
 app.use("/categories",categoryrouter)
 app.use("/comment",commentsrouter)
 app.use("/image",imagerouter)

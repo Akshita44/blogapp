@@ -50,7 +50,6 @@ function Write() {
         {
             setisLoading(false)
             alert("Fill the details-Title and description are mandatory")
-            return
         }
         else{
         const t={createdBy,title,desc}
@@ -75,7 +74,7 @@ function Write() {
         }
         try{
           
-            const d=await axios.post("/post/",t)
+            const d=await axios.post("/posts/",t)
             if(d.status === 201)
             {
                 history.push(`/`)

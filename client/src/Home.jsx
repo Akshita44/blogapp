@@ -18,7 +18,7 @@ function Home() {
     const [productsCount,setproductsCount]=useState();
     useEffect(()=>{
         const getcount=async()=>{
-            const p=await axios.get(`/post/count`)
+            const p=await axios.get(`/posts/count`)
             // console.log(p.data);
             setproductsCount(p.data)
         }
@@ -30,12 +30,12 @@ function Home() {
             setisLoading(true)
             if(search)
             {
-                const p=await axios.get(`/post/${search}&page=${searchPage}`)
+                const p=await axios.get(`/posts/${search}&page=${searchPage}`)
                 // console.log(p.data);
                 setposts(p.data)
             }
             else{
-                const p=await axios.get(`/post/?page=${currentPage}`)
+                const p=await axios.get(`/posts/?page=${currentPage}`)
                 // console.log(p.data);
                 setposts(p.data)
             }
